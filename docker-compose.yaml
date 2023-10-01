@@ -1,0 +1,58 @@
+version: '3.8'
+
+name: movieligent
+services:
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: nginxproxy/nginx-proxy
+    ports:
+      - '80:80'
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  client-service:
+    container_name: client-service
+    image: movieligent-client-service
+    build:
+      context: client-service
+      dockerfile: ./Dockerfile.dev
+    expose:
+      - '3000'
+    environment:
+      - VIRTUAL_HOST=localhost
+      - VIRTUAL_PATH=/
+    env_file:
+      - ./client-service/.env
+    volumes:
+      - ./client-service/src/:/usr/src/app/src/
+      - ./shared/:/usr/src/app/node_modules/shared
+    depends_on:
+      - movie-service
+
+  movie-service:
+    container_name: movie-service
+    image: movieligent-movie-service
+    build:
+      context: movie-service
+      dockerfile: ./Dockerfile.dev
+    expose:
+      - '8080'
+    environment:
+      - VIRTUAL_HOST=localhost
+      - VIRTUAL_PATH=/api/movie-service
+    env_file:
+      - ./movie-service/.env
+    volumes:
+      - ./movie-service/src/:/usr/src/app/src/
+      - ./shared/:/usr/src/app/node_modules/shared
+    depends_on:
+      - nginx-proxy
+      - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./${DATA_PATH:-data}/mongod:/data/db

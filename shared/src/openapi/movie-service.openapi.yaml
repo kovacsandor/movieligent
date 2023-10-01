@@ -1,0 +1,41 @@
+openapi: '3.0.2'
+info:
+  title: movie-service
+  version: '1.0'
+paths:
+  /api/movie-service/favourite:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/MovieServiceCreateFavouriteRequestDto'
+      responses:
+        201:
+          description: The created favourite movie.
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/MovieServiceCreateFavouriteResponseDto'
+components:
+  schemas:
+    MovieServiceCreateFavouriteRequestDto:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+        - id
+    MovieServiceCreateFavouriteResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+      required:
+        - id
+        - title
