@@ -3,39 +3,84 @@ info:
   title: movie-service
   version: '1.0'
 paths:
-  /api/movie-service/favourite:
-    post:
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              $ref: '#/components/schemas/MovieServiceCreateFavouriteRequestDto'
+  /api/movie-service/search-movies:
+    get:
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
       responses:
-        201:
+        200:
           description: The created favourite movie.
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/MovieServiceCreateFavouriteResponseDto'
+                $ref: '#/components/schemas/MovieServiceSearchMoviesResponseDto'
+        default:
+          description: Service Error
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/ServiceError'
 components:
   schemas:
-    MovieServiceCreateFavouriteRequestDto:
+    ServiceError:
       type: object
       properties:
-        id:
+        message:
           type: string
+        requestStatus:
+          type: object
+          $ref: '#/components/schemas/RequestStatusFailure'
       required:
-        - id
-    MovieServiceCreateFavouriteResponseDto:
+        - message
+        - requestStatus
+    MovieServiceSearchMoviesResponseDto:
+      type: object
+      properties:
+        requestStatus:
+          type: object
+          $ref: '#/components/schemas/RequestStatusSuccess'
+        movies:
+          type: array
+          items:
+            $ref: '#/components/schemas/MovieServiceSearchMoviesResultItem'
+      required:
+        - movies
+        - requestStatus
+    MovieServiceSearchMoviesResultItem:
       type: object
       properties:
         id:
+          type: integer
+          format: int32
+        overview:
+          type: string
+        releaseDate:
           type: string
         title:
           type: string
       required:
         - id
+        - overview
+        - releaseDate
         - title
+    RequestStatusFailure:
+      type: string
+      enum:
+        - Failure
+    RequestStatusSuccess:
+      type: string
+      enum:
+        - Success

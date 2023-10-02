@@ -5,6 +5,11 @@ import mongoose from 'mongoose';
 let mongoServer: MongoMemoryServer;
 
 beforeAll(async () => {
+  process.env = {
+    ...process.env,
+    JWT_SECRET: 'JWT_SECRET',
+  };
+
   mongoServer = await MongoMemoryServer.create({ instance: {} });
   await mongoose.connect(mongoServer.getUri());
 });

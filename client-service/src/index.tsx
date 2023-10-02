@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { App } from './components';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { AppComponent } from './components';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 const rootId = 'root';
 const rootElement = document.getElementById('root');
+const queryClient = new QueryClient();
 
 if (!rootElement) {
   throw new Error(`Could not find element with id '${rootId}'`);
@@ -14,7 +16,9 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <AppComponent />
+    </QueryClientProvider>
   </React.StrictMode>,
 );
 

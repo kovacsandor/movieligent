@@ -34,7 +34,7 @@ Please provide `README.md` file with every necessary information to run your cod
     - `docker login`
 - navigate to the project root
 - run `sh shell-scripts/init.sh`
-- edit `movie-service/.env`, add your own api key
+- edit `movie-service/.env`, add your own `TMDB_AUTH` api key
 - stop all docker-compose processes
 - make sure that `localhost:80` and `localhost:27017` is not in use
 - still in the project root run `docker-compose up`
@@ -61,11 +61,11 @@ Please provide `README.md` file with every necessary information to run your cod
   - generated api calls for the client
   - generated code is shared between the services
   - api calls are kept in sync
-  - api tests are also in sync (tbi)
+  - api tests are also in sync
 - development mode
   - docker compose
+    - code is shared with volumes for live reloading and restarting
     - database included
-    - code is shared with volumes
     - if there is a change in the shared library compose needs to be restarted
   - live reload in the browser
   - restarting server if code change is detected
@@ -76,10 +76,16 @@ Please provide `README.md` file with every necessary information to run your cod
   - formats code
   - organises imports
 - prettier is used, related expension is recommneded to install
-- tailwindcss for the least css possible (tbi)
+- tailwindcss for the least css possible
 - data is mapped out of compose via volumes, so you don't loose your data between development sessions
 - testing with in memory database for independent tests
-- error handling middleware (tbi)
+- error handling middleware
+- error handling on the client
+- loading state handling on the client
+- client side caching
+- testing main functionalities
+- paging
+- validating requests
 
 ## Out of scope
 - authentication

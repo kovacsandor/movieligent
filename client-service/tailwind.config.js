@@ -1,0 +1,30 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./public/index.html', './src/**/*.tsx'],
+  theme: {
+    colors: {
+      'movieligent-button-primary-hover': '#5F091D',
+      'movieligent-button-primary': '#E00D00',
+      'movieligent-button-secondary-hover': '#4B1096',
+      'movieligent-button-secondary': '#7223D8',
+      'movieligent-dark-background': '#282E37',
+      'movieligent-dark-card': '#141B26',
+      'movieligent-dark-icon': '#6B7099',
+      'movieligent-dark-link': '#0086FA',
+      'movieligent-dark-text-heading': '#FEFEFE',
+      'movieligent-dark-text-normal': '#E7E7F0',
+      'movieligent-header-background': '#FFFFFF',
+      'movieligent-light-background': '#F6F8FC',
+      'movieligent-light-card': '#F6F8FC',
+      'movieligent-light-icon': '#6B7099',
+      'movieligent-light-link': '#E00D00',
+      'movieligent-light-text-heading': '#0D0C38',
+      'movieligent-light-text-normal': '#4C4D69',
+      'movieligent-logo-dark': '#AF292E',
+      'movieligent-logo-light': '#EE312E',
+      'movieligent-logo-normal': '#D3222A',
+    },
+    extend: {},
+  },
+  plugins: [],
+};

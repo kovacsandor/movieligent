@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "postinstall": "openapi-typescript \"src/openapi/**/*.yaml\" --output ./"
+    "openapi-generate": "openapi-typescript \"src/openapi/**/*.yaml\" --output ./ --immutable-types --export-type",
+    "postinstall": "npm run openapi-generate"
   },
   "keywords": [],
   "author": "",
