@@ -21,11 +21,11 @@ Notable checkpoints:
 
 Please provide `README.md` file with every necessary information to run your code, tests.
 
-## Prerequisits
+## Prerequisites
 - docker
 - npm 
 - node version 20
-- a valid apikey for https://developer.themoviedb.org/
+- a valid api key for https://developer.themoviedb.org/
 
 ## Getting started
 
@@ -75,22 +75,29 @@ Please provide `README.md` file with every necessary information to run your cod
 - vscode is supported out of the box
   - formats code
   - organises imports
-- prettier is used, related expension is recommneded to install
+- prettier is used, related extension is recommended to install
 - tailwindcss for the least css possible
-- data is mapped out of compose via volumes, so you don't loose your data between development sessions
-- testing with in memory database for independent tests
+- data is mapped out of compose via volumes, so you don't lose your data between development sessions
+- testing with in-memory database for independent tests
 - error handling middleware
 - error handling on the client
 - loading state handling on the client
-- client side caching
+- client-side caching
 - testing main functionalities
 - paging
 - validating requests
+- list movies
+- add favourites
+- list favourites
+- site build
+- responsive design
+- search movies when user hits enter
+- search movies if user stops typing
 
 ## Out of scope
 - authentication
 - production mode
 - better way of sharing code than volumes and local file paths
 - running the app independently from used ports
-- husky precommit hook
+- husky pre-commit hook
 - deployment / separate databases

@@ -4,5 +4,5 @@ type Props = {
   readonly children: ReactNode;
 };
 export const MainComponent = ({ children }: Props) => {
-  return <main className='flex-grow container mx-auto p-4'>{children}</main>;
+  return <main className='flex-col-reverse md:flex-row flex grow'>{children}</main>;
 };

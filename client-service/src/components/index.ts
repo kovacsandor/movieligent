@@ -5,6 +5,8 @@ export * from './card';
 export * from './error';
 export * from './header';
 export * from './icon';
+export * from './list-favourites';
 export * from './logo';
 export * from './main';
 export * from './search-movies';
+export * from './text-input';

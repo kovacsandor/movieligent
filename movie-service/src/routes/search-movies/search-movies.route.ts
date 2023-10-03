@@ -1,9 +1,16 @@
 import axios from 'axios';
 import { NextFunction, Request, Response, Router } from 'express';
 import { AuthoriseUserMiddleware } from '../../middlewares';
-import { AuthorisedLocalsType, TmdbMovieSearchQueryParams } from '../../types';
+import { AuthorisedLocalsType } from '../../types';
 import { serialiseParamsUtil } from '../../utils';
-import { MethodType, PathType, QueryParamsType, ResponseType, TmdbMovieSearchResponse } from './types';
+import {
+  MethodType,
+  PathType,
+  QueryParamsType,
+  ResponseType,
+  TmdbMovieSearchQueryParams,
+  TmdbMovieSearchResponse,
+} from './types';
 
 const path: PathType = '/api/movie-service/search-movies';
 const method: MethodType = 'get';

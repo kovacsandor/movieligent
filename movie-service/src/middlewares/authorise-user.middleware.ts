@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { ParamsDictionary, Query } from 'express-serve-static-core';
-import { JwtPayload, decode, sign } from 'jsonwebtoken';
-import { mongo } from 'mongoose';
+import { verify } from 'jsonwebtoken';
 import { MovieServiceOpenapi } from 'shared';
 
 type UnauthorizedLocalsType = {
@@ -21,18 +20,19 @@ export const AuthoriseUserMiddleware = <
   res: Response<ResBody | ServiceError, UnauthorizedLocalsType>,
   next: NextFunction,
 ) => {
-  const userId = new mongo.ObjectId().toHexString();
+  try {
+    const verified = verify(req.headers.authorization, process.env.JWT_SECRET);
 
-  const payload: JwtPayload = { sub: userId };
-  const signed = sign(payload, process.env.JWT_SECRET);
+    if (typeof verified === 'string') {
+      res.locals.userId = verified;
+    }
 
-  const { sub } = decode(signed);
-
-  if (typeof sub !== 'string') {
+    if (typeof verified !== 'string') {
+      res.locals.userId = verified.sub;
+    }
+  } catch (error) {
     return res.status(401).send({ message: 'Unauthorised user', requestStatus: 'Failure' });
   }
-
-  res.locals.userId = sub;
 
   next();
 };

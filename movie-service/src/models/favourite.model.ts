@@ -6,6 +6,17 @@ const favouriteSchema = new Schema({
     required: true,
     type: String,
   },
+  overview: {
+    type: String,
+  },
+  releaseDate: {
+    type: Date,
+  },
+  movieId: {
+    required: true,
+    type: Number,
+    unique: true,
+  },
   userId: {
     required: true,
     type: String,

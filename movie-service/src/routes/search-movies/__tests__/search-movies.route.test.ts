@@ -2,12 +2,11 @@ import { describe, expect, test } from '@jest/globals';
 import { AxiosResponse } from 'axios';
 import { agent } from 'supertest';
 import { app } from '../../../app';
+import { GetTestHeadersHelper } from '../../../helpers';
 import { MethodType, PathType, QueryParamsType, ResponseType, TmdbMovieSearchResultItem } from '../types';
 
-const path: PathType = '/api/movie-service/search-movies';
-const method: MethodType = 'get';
-
 const mockAxiosGet = jest.fn();
+
 jest.mock('axios', () => ({
   get: (url: string) => {
     mockAxiosGet.mockImplementation((args) => {
@@ -32,13 +31,16 @@ jest.mock('axios', () => ({
 }));
 
 describe('SearchMoviesRoute', () => {
-  test('calls tmdb with the correct parameters', async () => {
-    const params: QueryParamsType = {
-      page: 1,
-      query: 'matrix',
-    };
+  const getHeaders = GetTestHeadersHelper();
+  const method: MethodType = 'get';
+  const path: PathType = '/api/movie-service/search-movies';
+  const params: QueryParamsType = {
+    page: 1,
+    query: 'matrix',
+  };
 
-    await agent(app)[method](path).query(params);
+  test('calls tmdb with the correct parameters', async () => {
+    await agent(app)[method](path).query(params).set(getHeaders());
 
     expect(mockAxiosGet).toBeCalledWith(
       'https://api.themoviedb.org/3/search/movie?query=matrix&include_adult=false&page=1',
@@ -46,12 +48,7 @@ describe('SearchMoviesRoute', () => {
   });
 
   test('returns the data received from tmdb correctly', async () => {
-    const params: QueryParamsType = {
-      page: 1,
-      query: 'matrix',
-    };
-
-    const { body } = await agent(app)[method](path).query(params);
+    const { body } = await agent(app)[method](path).query(params).set(getHeaders());
 
     const expected: ResponseType = {
       requestStatus: 'Success',
